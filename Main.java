@@ -6,5 +6,7 @@ public class Main {
         //System.out.println(game);
         game.fillletterBag();
         game.play();
+
+
     }
 }
