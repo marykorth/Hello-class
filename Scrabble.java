@@ -373,19 +373,6 @@ public class Scrabble {
         }
 
         return true;
-//        for (int i = 0; i < board.length; i ++) {
-//            StringBuilder rowStrings = new StringBuilder();
-//            StringBuilder colStrings = new StringBuilder();
-//            for (int j = 0; j < board[0].length; j ++) {
-//                rowStrings.append(board[i][j]); // get chars in curr row
-//                colStrings.append(board[j][i]); // bet chars in curr col
-//            }
-//
-//            if (! checkValidity (rowStrings.toString ()) || ! checkValidity (colStrings.toString())) {
-//                return false;
-//            }
-//        }
-        // return true;
     }
 
     public int computeScore(List<String> words) {
