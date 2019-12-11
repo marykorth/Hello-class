@@ -1,3 +1,13 @@
+/* SCRABBLE
+
+Basic instructions: The user (you) takes your turn first. Look at the tiles in your rack and input them letter by letter based on coordinates. If
+the word you input is not a word, you can try again. Type "Done" after you input your last letter. Do not use a word that has already
+been used or a coordinate that has already been used.
+
+*/
+
+
+
 package com.company;
 
 import java.io.IOException;
@@ -204,24 +214,9 @@ public class Scrabble {
             return rv;
 
     }
-
-    public static int getScoreForLetter(char c) {
-        //  String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int[] scores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
-
-        return scores[c - 'A'];
-        // return scores[];
-    }
-
-
-    public boolean isDone() {
-        // bag is empty
-        // either: someone runs out of tiles OR
-        // no more moves can be made
-        return false;
-    }
-
-    public void play() throws Exception {
+        /* This is the play method. It uses all the other methods as helper functions and essentially plays the game.
+        */
+        public void play() throws Exception {
         Scanner scanner = new Scanner(System.in);
         while (!letterBag.isEmpty()) {
             while (size(rack1) < 7) {
@@ -260,7 +255,6 @@ public class Scrabble {
                         System.out.println(WordsPlayed);
                     }
                     break;
-                }
 
 
                 System.out.print("x-coordinate: ");
@@ -289,6 +283,23 @@ public class Scrabble {
 
         }
 
+        }
+    
+    //In theory this should have been used to eventually end the Play method
+    public boolean isDone() {
+        // bag is empty
+        // either: someone runs out of tiles OR
+        // no more moves can be made
+        return false;
+    }
+            
+    //The getScoreForLetter returns the value of a Tile
+    public static int getScoreForLetter(char c) {
+        //  String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int[] scores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+
+        return scores[c - 'A'];
+        // return scores[];
     }
 
     // return tile that corresponds to user input and adds it to playedTiles
@@ -307,6 +318,7 @@ public class Scrabble {
         throw new Exception("Tile does not exist");
     }
 
+    //The printRack method allows the user to see what tiles he/she can use
     public void printRack(ArrayList<Tile> rack) {
         for (Tile tile : rack) {
             if (tile.played) continue;
@@ -325,6 +337,7 @@ public class Scrabble {
         return count;
     }
 
+    //When a word is invalid, the resetRack method returns the tiles back to the user's rack
     public void resetRack(HashSet<Tile> playedTiles) {
         for (Tile tile : playedTiles) {
             tile.played = false;
@@ -333,6 +346,8 @@ public class Scrabble {
         }
     }
 
+    /*getAllWordsOnBoard returns a list of all the words on the board. The ones that are not in the HashSet called WordsPlayed
+      are the words whose values are going to be calculated in computeScore */     
     public List<String> getAllWordsOnBoard() {
         // Get Words in Rows
         List<String> words = new ArrayList<>();
@@ -363,7 +378,7 @@ public class Scrabble {
         return words;
     }
 
-    // checks each row and col to see if board is valid
+    // isValid checks each row and column to see if board is valid
     public boolean isValid() {
 
         List<String> words = getAllWordsOnBoard();
@@ -375,6 +390,7 @@ public class Scrabble {
         return true;
     }
 
+    //computeScore calculates the score of words played
     public int computeScore(List<String> words) {
         int totalScore = 0;
         for (String word : words) {
@@ -395,6 +411,7 @@ public class Scrabble {
         return score;
     }
 
+    //checkValidity is a helper function for isValid. The combination of the two makes sure a word can be played
     public boolean checkValidity(String str) {
         String[] words = str.split("\\s+");
         //  for(String s : words) System.out.println("Testing: " + s);
@@ -410,7 +427,11 @@ public class Scrabble {
         return true;
     }
 
-    //AI
+    /*AI: Unfortunately, I was not able to get my AI to work. The following is a sketch of what the AI code would have looked
+    like. It begins by finding some group of letters on the board and then checks to see what words in the dictionary contain
+    these letters as a substring. It makes a list of the ones that do. That list then is filtered to become only words that can
+    made with the letters in rack2 (the computer's rack). Finally, the words are filtered through the idValid method, and from 
+    those that make it through, the one with the highest score is put on the board*/
     /*
 
     public List<String> getSubstring() {
@@ -460,6 +481,7 @@ public class Scrabble {
     }
 
      */
+
 
 }
 
